@@ -1,0 +1,26 @@
+/* body {
+ background-image: url("../images/train.jpg");
+} */
+
+.jumbotron {
+ background-image: url("../images/Trains3.jpeg");
+ background-size: 100%;
+ background-position-y: bottom;
+ color:white;
+
+}
+
+h1 {
+ text-align: center;
+ font-family: 'Playfair Display SC', serif;
+ margin-top: 30px;
+}
+p {
+ text-align: center;
+ margin-top: -21px;
+
+}
+
+.display-4{
+ margin-top: 46px;
+}
