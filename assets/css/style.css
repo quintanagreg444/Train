@@ -3,24 +3,31 @@
 } */
 
 .jumbotron {
- background-image: url("../images/Trains3.jpeg");
- background-size: 100%;
- background-position-y: bottom;
+ background-image: url("../images/gstrain.jpg");
+ background-size: 100%; 
+ background-blend-mode:;
+ 
  color:white;
+ background-repeat: round ;
 
 }
 
 h1 {
  text-align: center;
- font-family: 'Playfair Display SC', serif;
+ font-family: 'Sue Ellen Francisco', cursive;
  margin-top: 30px;
 }
 p {
  text-align: center;
- margin-top: -21px;
+ margin-top: -28px;
 
 }
 
 .display-4{
- margin-top: 46px;
+ margin-top: -23px;
+}
+.schedule1 {
+
+
+ 
 }
