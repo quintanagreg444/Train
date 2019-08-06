@@ -12,24 +12,37 @@ firebase.initializeApp(firebaseConfig);
 var database = firebase.database();
 function nextArrival(frequency, firstTrain) {
   var freq = parseInt(frequency);
+  var currentTime = moment();
+  var firstTrainConverted = moment(firstTrain, "hh:mm");
+  var diffTime = moment().diff(moment(firstTrainConverted), "minutes");
+  console.log("Current Time", diffTime);
 
-  return "work in progress";
+  var minsaway = Math.abs(diffTime % frequency);
+  var nextTrain = moment().add(minsaway, "minutes");
+  var formatNextTrain = moment(nextTrain).format("hh:mm");
+  return formatNextTrain;
 }
 
 function minAway(frequency, firstTrain) {
   var freq = parseInt(frequency);
-  return "work in progress";
+  var currentTime = moment();
+  var firstTrainConverted = moment(firstTrain, "hh:mm");
+  var diffTime = moment().diff(moment(firstTrainConverted), "minutes");
+  console.log("Current Time", diffTime);
+
+  var minsaway = Math.abs(diffTime % frequency);
+  return minsaway;
 }
 
-function addTrain(trainObject){
-var newRow=$("<tr>")
-newRow.append(`<td>${trainObject.trainName}</td>`)
-newRow.append(`<td>${trainObject.destination}</td>`)
-newRow.append(`<td>${trainObject.frequency}</td>`)
-newRow.append(`<td>${trainObject.nextArrival}</td>`)
-newRow.append(`<td>${trainObject.minAway}</td>`)
+function addTrain(trainObject) {
+  var newRow = $("<tr>");
+  newRow.append(`<td>${trainObject.trainName}</td>`);
+  newRow.append(`<td>${trainObject.destination}</td>`);
+  newRow.append(`<td>${trainObject.frequency}</td>`);
+  newRow.append(`<td>${trainObject.nextArrival}</td>`);
+  newRow.append(`<td>${trainObject.minAway}</td>`);
 
-$("#trains").append(newRow)
+  $("#trains").append(newRow);
 }
 $("#submitButton").on("click", function(event) {
   event.preventDefault();
@@ -57,17 +70,23 @@ $("#submitButton").on("click", function(event) {
     });
 });
 
-database.ref().on("value", function(snapshot){
-//console.log(snapshot.val())
-for (var train in snapshot.val()){
-console.log(snapshot.val()[train].destination)
-var trainObject={
-trainName:train,
-destination:snapshot.val()[train].destination,
-frequency:snapshot.val()[train].frequency,
-nextArrival:nextArrival(snapshot.val()[train].frequency, snapshot.val()[train].firstTrainTime),
-minAway:minAway(snapshot.val()[train].frequency, snapshot.val()[train].firstTrainTime)
-}
-addTrain(trainObject)
-}
-} )
+database.ref().on("value", function(snapshot) {
+  //console.log(snapshot.val())
+  for (var train in snapshot.val()) {
+    console.log(snapshot.val()[train].destination);
+    var trainObject = {
+      trainName: train,
+      destination: snapshot.val()[train].destination,
+      frequency: snapshot.val()[train].frequency,
+      nextArrival: nextArrival(
+        snapshot.val()[train].frequency,
+        snapshot.val()[train].firstTrainTime
+      ),
+      minAway: minAway(
+        snapshot.val()[train].frequency,
+        snapshot.val()[train].firstTrainTime
+      )
+    };
+    addTrain(trainObject);
+  }
+});
